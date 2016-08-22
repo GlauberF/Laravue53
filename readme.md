@@ -40,17 +40,17 @@ vagrant@homestead:~/Code/Cursos/vue-laravel$ gulp
 vagrant@homestead:~/Code/Cursos/vue-laravel$ npm run dev
 ```
 
-Configure seu arquivo de hosts para apontar para o endereço `laravue.app`
+Configure seu arquivo de hosts para apontar para o endereço `http://laravue53.app`
 
 ```
 192.168.10.10    laravue53.app
 ```
 
-No seu navegador, aponte para [http://laravue.app:3000](http://laravue.app:3000)
+No seu navegador, aponte para [http://laravue53.app:3000](http://laravue.app:3000)
 
 ### Licença
 
-OpenSource/[MIT License](https://tldrlegal.com/license/mit-license)
+OpenSource under [MIT License](https://tldrlegal.com/license/mit-license)
 
 ### Nota
 
