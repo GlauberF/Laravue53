@@ -13,7 +13,7 @@ No seu arquivo `homestead.yaml` configure:
 
 ```
 sites:
-    - map: laravue.app 
+    - map: laravue53.app 
       to: /home/vagrant/Code/Cursos/vue-laravel/public
       
 ports:
@@ -43,7 +43,7 @@ vagrant@homestead:~/Code/Cursos/vue-laravel$ npm run dev
 Configure seu arquivo de hosts para apontar para o endereço `laravue.app`
 
 ```
-192.168.10.10    laravue.app
+192.168.10.10    laravue53.app
 ```
 
 No seu navegador, aponte para [http://laravue.app:3000](http://laravue.app:3000)
