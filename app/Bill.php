@@ -11,5 +11,6 @@ class Bill extends Model
         'value',
         'due_date',
         'done',
+        'receivable'
     ];
 }

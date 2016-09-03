@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="/css/app.css" />
 </head>
 <body>
-
-    <app-component></app-component>
-
+    <menu-component></menu-component>
+    <div class="container">
+        <router-view></router-view>
+    </div>
 
     <script src="/js/moment.js"></script>
     <script src="/js/app.js"></script>

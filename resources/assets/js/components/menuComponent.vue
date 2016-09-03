@@ -9,17 +9,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">LaraVue</a>
+                <a class="navbar-brand" v-link="{ name: 'dashboard' }">LaraVue</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contas a Pagar <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li v-for="menu in menus">
-                                <a href="javascript:;" @click="showView(menu.id)"><i class="fa fa-{{ menu.icon }}"></i> {{ menu.name }}</a>
+                            <li v-for="menu in payableMenu">
+                                <a v-link="{ name: menu.route }" @click="clearForm(menu)"><i class="fa fa-{{ menu.icon }}"></i> {{ menu.name }}</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contas a Receber <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li v-for="menu in receivableMenu">
+                                <a v-link="{ name: menu.route }" @click="clearForm(menu)"><i class="fa fa-{{ menu.icon }}"></i> {{ menu.name }}</a>
                             </li>
                         </ul>
                     </li>
@@ -35,19 +45,22 @@
     export default{
         data(){
             return{
-                menus: [
-                    {id: 0, name: 'Listar Contas', icon: 'list'},
-                    {id: 1, name: 'Criar Conta', icon: 'plus'}
+                payableMenu: [
+                    {name: 'Listar Contas', icon: 'list', route: 'contas.pagar'},
+                    {name: 'Criar Conta', icon: 'plus', route: 'contas.pagar.nova'}
+                ],
+                receivableMenu: [
+                    {name: 'Listar Contas', icon: 'list', route: 'contas.receber'},
+                    {name: 'Criar Conta', icon: 'plus', route: 'contas.receber.nova'}
                 ],
             }
         },
         methods: {
-            showView: function (id) {
-                if (id == 1) {
-                    this.$parent.formType = 'insert';
+            clearForm(menu) {
+                if (menu.route == 'contas.pagar.nova' || menu.route == 'contas.receber.nova') {
+                    this.$dispatch('clear-form');
                 }
-                this.$parent.activeView = id;
-            },
+            }
         }
     }
 </script>

@@ -17,9 +17,24 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::get('/bills', ['as' => 'bills.index', 'uses' => 'BillController@index']);
-Route::post('/bills', ['as' => 'bill.new', 'uses' => 'BillController@store']);
-Route::put('/bills/{id}', ['as' => 'bill.update', 'uses' => 'BillController@update']);
-Route::put('/bills/{id}/pay', ['as' => 'bill.pay', 'uses' => 'BillController@pay']);
-Route::put('/bills/{id}/unpay', ['as' => 'bill.unpay', 'uses' => 'BillController@unpay']);
-Route::delete('/bills/{id}', ['as' => 'bill.destroy', 'uses' => 'BillController@destroy']);
+Route::group(['prefix' => 'bills', 'as' => 'bills.'], function () {
+
+    Route::get('/', ['as' => 'bills.index', 'uses' => 'BillController@index']);
+    Route::get('/total', ['as' => 'bills.index', 'uses' => 'BillController@total']);
+    Route::get('/payables', ['as' => 'bills.payables', 'uses' => 'BillController@indexPayable']);
+    Route::get('/receivables', ['as' => 'bills.receivables', 'uses' => 'BillController@indexReceivable']);
+
+    Route::post('/', ['as' => 'bill.new', 'uses' => 'BillController@store']);
+    Route::group(['prefix' => '{id}'], function () {
+
+        Route::get('/', ['as' => 'bill.edit', 'uses' => 'BillController@edit']);
+        Route::put('/', ['as' => 'bill.update', 'uses' => 'BillController@update']);
+        Route::put('/pay', ['as' => 'bill.pay', 'uses' => 'BillController@pay']);
+        Route::put('/unpay', ['as' => 'bill.unpay', 'uses' => 'BillController@unpay']);
+        Route::delete('/', ['as' => 'bill.destroy', 'uses' => 'BillController@destroy']);
+
+    });
+
+
+});
+

@@ -16,6 +16,7 @@ require('laravel-elixir-vue');
 elixir(mix => {
     mix.sass('app.scss');
 
+
     mix.copy('node_modules/moment/min/moment-with-locales.min.js','public/js/moment.js');
     mix.copy('node_modules/font-awesome/fonts', 'public/fonts');
 

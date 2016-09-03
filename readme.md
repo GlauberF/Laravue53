@@ -37,8 +37,12 @@ vagrant@homestead:~/Code/Cursos$ git clone <repository> vue-laravel
 vagrant@homestead:~/Code/Cursos$ cd vue-laravel
 vagrant@homestead:~/Code/Cursos/vue-laravel$ npm install
 vagrant@homestead:~/Code/Cursos/vue-laravel$ gulp
-vagrant@homestead:~/Code/Cursos/vue-laravel$ npm run dev
 ```
+Configure seu arquivo `.env` com suas configurações de banco de dados e execute as migrations
+```
+vagrant@homestead:~/Code/Cursos/vue-laravel$ php artisan migrate
+```
+
 
 Configure seu arquivo de hosts para apontar para o endereço `http://laravue53.app`
 
@@ -46,12 +50,8 @@ Configure seu arquivo de hosts para apontar para o endereço `http://laravue53.a
 192.168.10.10    laravue53.app
 ```
 
-No seu navegador, aponte para [http://laravue53.app:3000](http://laravue.app:3000)
+No seu navegador, aponte para [http://laravue53.app](http://laravue53.app)
 
 ### Licença
 
 OpenSource under [MIT License](https://tldrlegal.com/license/mit-license)
-
-### Nota
-
-Laravel 5.3 **ainda não foi lançado**. Este projeto usa a versão **5.3.0-RC1**

@@ -13,51 +13,83 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-Vue.filter('doneLabel', (value) => {
-    if (value == 0) {
-        return 'Não';
-    }
+require('./filters');
+require('./resources');
 
-    return 'Sim';
-});
+Vue.component('please-wait-modal', require("./components/layout/PleaseWaitModal.vue"));
+Vue.component('menu-component', require("./components/menuComponent.vue"));
 
-Vue.filter('formatDate', (value, format, locale) => {
-    if (!format) {
-        format = "L";
-    }
+import AppComponent from "./components/AppComponent.vue";
+import PayableComponent from "./components/payable/PayableComponent.vue";
+import PayableListComponent from "./components/payable/ListComponent.vue";
+import PayableFormComponent from "./components/payable/FormComponent.vue";
 
-    if (locale) {
-        moment.locale(locale);
-    }
+import ReceivableComponent from "./components/receivable/ReceivableComponent.vue";
+import ReceivableListComponent from "./components/receivable/ListComponent.vue";
+import ReceivableFormComponent from "./components/receivable/FormComponent.vue";
 
-    return moment(value).format(format);
-});
 
-Vue.filter('formatStatus', (value, bills) => {
-
-    if (bills.length == false) {
-        return "muted";
-    }
-
-    var count = 0;
-
-    for (var i in bills) {
-        if (!bills[i].done) {
-            count++;
-        }
-    }
-
-    if (count > 0) {
-        return "danger";
-    }
-
-    return "success";
-
-});
-
-const app = new Vue({
-    el: 'body',
+const app = Vue.extend({
     components: {
-        'app-component': require('./components/appComponent.vue')
+        AppComponent
     }
 });
+
+var VueRouter = require('vue-router');
+Vue.use(VueRouter);
+var router = new VueRouter();
+
+router.map({
+    '/': {
+        name: 'dashboard',
+        component: AppComponent
+    },
+
+    '/contas/pagar': {
+        name: 'contas.pagar',
+        component: PayableComponent,
+        subRoutes: {
+            '/': {
+                component: PayableListComponent
+            },
+            '/nova': {
+                name: 'contas.pagar.nova',
+                component: PayableFormComponent
+            },
+            '/:id/editar': {
+                name: 'contas.pagar.editar',
+                component: PayableFormComponent
+            },
+        }
+    },
+    '/contas/receber': {
+        name: 'contas.receber',
+        component: ReceivableComponent,
+        subRoutes: {
+            '/': {
+                component: ReceivableListComponent
+            },
+            '/nova': {
+                name: 'contas.receber.nova',
+                component: ReceivableFormComponent
+            },
+            '/:id/editar': {
+                name: 'contas.receber.editar',
+                component: ReceivableFormComponent
+            },
+        }
+    },
+
+    '*': {
+        component: AppComponent
+    }
+});
+
+router.redirect({
+    '*': '/'
+});
+
+router.start(app, 'body');
+
+
+
